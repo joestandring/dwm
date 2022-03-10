@@ -1,31 +1,39 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-#include "themes/dracula.h"                     /* import color definitions */
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
-static const unsigned int snap      = 32;       /* snap pixel */
-static const unsigned int gappih    = 10;       /* horiz inner gap between windows */
-static const unsigned int gappiv    = 10;       /* vert inner gap between windows */
-static const unsigned int gappoh    = 10;       /* horiz outer gap between windows and screen edge */
-static const unsigned int gappov    = 10;       /* vert outer gap between windows and screen edge */
-static const int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
-static const int showbar            = 1;        /* 0 means no bar */
-static const int topbar             = 1;        /* 0 means bottom bar */
-static const int horizpadbar        = 2;        /* horizontal padding for statusbar */
-static const int vertpadbar         = 0;        /* vertical padding for statusbar */
-static const int vertpad            = 10;       /* vertical padding of bar */
-static const int sidepad            = 10;       /* horizontal padding of bar */
-static const char *fonts[]          = { "monospace:size=11" };
-static const char dmenufont[]       = "monospace:size=11";
-static const char *colors[][3]      = {
-	/*               fg       bg     border */
-	[SchemeNorm]  = { white, gray,  gray },
-	[SchemeSel]   = { black,  blue,  blue },
-	[SchemeTitle] = { white,  gray,  gray },
+#include "themes/dracula.h"                       /* import color definitions */
+static const unsigned int borderpx    = 1;        /* border pixel of windows */
+static const unsigned int snap        = 32;       /* snap pixel */
+static const unsigned int gappih      = 10;       /* horiz inner gap between windows */
+static const unsigned int gappiv      = 10;       /* vert inner gap between windows */
+static const unsigned int gappoh      = 10;       /* horiz outer gap between windows and screen edge */
+static const unsigned int gappov      = 10;       /* vert outer gap between windows and screen edge */
+static const int smartgaps            = 0;        /* 1 means no outer gap when there is only one window */
+static const int showbar              = 1;        /* 0 means no bar */
+static const int topbar               = 1;        /* 0 means bottom bar */
+static const int horizpadbar          = 2;        /* horizontal padding for statusbar */
+static const int vertpadbar           = 0;        /* vertical padding for statusbar */
+static const unsigned int colorfultag = 1;        /* 0 means use SchemeSel for selected tag */
+static const int vertpad              = 10;       /* vertical padding of bar */
+static const int sidepad              = 10;       /* horizontal padding of bar */
+static const char *fonts[]            = { "monospace:size=11" };
+static const char dmenufont[]         = "monospace:size=11";
+static const char *colors[][3]        = {
+	/*                fg            bg        border */
+	[SchemeNorm]  = { col_white,    col_gray, col_gray },
+	[SchemeSel]   = { col_black,    col_blue, col_blue },
+	[SchemeTitle] = { col_white,    col_gray, col_gray },
+	[SchemeTag]   = { col_br_black, col_gray, col_black },
+	[SchemeTag1]  = { col_red,      col_gray, col_black },
+	[SchemeTag2]  = { col_green,    col_gray, col_black },
+	[SchemeTag3]  = { col_yellow,   col_gray, col_black },
+	[SchemeTag4]  = { col_blue,     col_gray, col_black },
+	[SchemeTag5]  = { col_cyan,     col_gray, col_black },
 };
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5" };
+static const int tagschemes[] = { SchemeTag1, SchemeTag2, SchemeTag3, SchemeTag4, SchemeTag5 };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -63,7 +71,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", black, "-nf", br_gray, "-sb", blue, "-sf", gray, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_black, "-nf", col_br_gray, "-sb", col_blue, "-sf", col_gray, NULL };
 static const char *termcmd[]  = { "kitty", NULL };
 
 static Key keys[] = {

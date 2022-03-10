@@ -59,7 +59,9 @@
 
 /* enums */
 enum { CurNormal, CurResize, CurMove, CurLast }; /* cursor */
-enum { SchemeNorm, SchemeSel, SchemeTitle }; /* color schemes */
+enum { SchemeNorm, SchemeSel, SchemeTitle, SchemeTag,
+       SchemeTag1, SchemeTag2, SchemeTag3, SchemeTag4,
+       SchemeTag5 }; /* color schemes */
 enum { NetSupported, NetWMName, NetWMState, NetWMCheck,
        NetWMFullscreen, NetActiveWindow, NetWMWindowType,
        NetWMWindowTypeDialog, NetClientList, NetLast }; /* EWMH atoms */
@@ -126,6 +128,7 @@ struct Monitor {
 	unsigned int seltags;
 	unsigned int sellt;
 	unsigned int tagset[2];
+	unsigned int colorfultag;
 	int showbar;
 	int topbar;
 	Client *clients;
@@ -657,6 +660,7 @@ createmon(void)
 	m->nmaster = nmaster;
 	m->showbar = showbar;
 	m->topbar = topbar;
+	m->colorfultag = colorfultag ? colorfultag: 0;
 	m->gappih = gappih;
 	m->gappiv = gappiv;
 	m->gappoh = gappoh;
@@ -848,7 +852,7 @@ drawbar(Monitor *m)
 	x = 0;
 	for (i = 0; i < LENGTH(tags); i++) {
 		w = TEXTW(tags[i]);
-		drw_setscheme(drw, scheme[m->tagset[m->seltags] & 1 << i ? SchemeSel : SchemeNorm]);
+		drw_setscheme(drw, scheme[occ & 1 << i ? (m->colorfultag ? tagschemes[i] : SchemeSel) : SchemeTag]);
 		drw_text(drw, x, 0, w, bh, lrpad / 2, tags[i], urg & 1 << i);
 		if (occ & 1 << i)
 			drw_rect(drw, x + boxs, boxs, boxw, boxw,
@@ -1956,6 +1960,13 @@ togglebar(const Arg *arg)
 	updatebarpos(selmon);
 	XMoveResizeWindow(dpy, selmon->barwin, selmon->wx + sp, selmon->by + vp, selmon->ww - 2 * sp, bh);
 	arrange(selmon);
+}
+
+void
+togglecolorfultag()
+{
+        selmon->colorfultag = !selmon->colorfultag;
+        drawbar(selmon);
 }
 
 void
