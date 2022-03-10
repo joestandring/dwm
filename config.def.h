@@ -15,12 +15,13 @@ static const int horizpadbar        = 2;        /* horizontal padding for status
 static const int vertpadbar         = 0;        /* vertical padding for statusbar */
 static const int vertpad            = 10;       /* vertical padding of bar */
 static const int sidepad            = 10;       /* horizontal padding of bar */
-static const char *fonts[]          = { "monospace:size=10" };
-static const char dmenufont[]       = "monospace:size=10";
+static const char *fonts[]          = { "monospace:size=11" };
+static const char dmenufont[]       = "monospace:size=11";
 static const char *colors[][3]      = {
-	/*               fg         bg         border   */
-	[SchemeNorm] = { b_gray,    black,     gray },
-	[SchemeSel]  = { gray,      blue,      blue },
+	/*               fg       bg     border */
+	[SchemeNorm]  = { white, gray,  gray },
+	[SchemeSel]   = { black,  blue,  blue },
+	[SchemeTitle] = { white,  gray,  gray },
 };
 
 /* tagging */
