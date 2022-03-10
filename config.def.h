@@ -11,11 +11,11 @@ static const unsigned int gappov      = 10;       /* vert outer gap between wind
 static const int smartgaps            = 0;        /* 1 means no outer gap when there is only one window */
 static const int showbar              = 1;        /* 0 means no bar */
 static const int topbar               = 1;        /* 0 means bottom bar */
-static const int horizpadbar          = 5;        /* horizontal padding for statusbar */
-static const int vertpadbar           = 11;       /* vertical padding for statusbar */
+static const int horizpadbar          = 0;        /* horizontal padding for statusbar */
+static const int vertpadbar           = 10;       /* vertical padding for statusbar */
 static const unsigned int colorfultag = 1;        /* 0 means use SchemeSel for selected tag */
-static const int vertpad              = 0;       /* vertical padding of bar */
-static const int sidepad              = 0;       /* horizontal padding of bar */
+static const int vertpad              = 10;       /* vertical padding of bar */
+static const int sidepad              = 10;       /* horizontal padding of bar */
 static const char *fonts[]            = { "monospace:size=11" };
 static const char *colors[][3]        = {
 	/*                fg            bg        border */
