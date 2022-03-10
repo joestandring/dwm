@@ -2,7 +2,7 @@
 
 /* appearance */
 #include "themes/dracula.h"                       /* import color definitions */
-static const unsigned int borderpx    = 1;        /* border pixel of windows */
+static const unsigned int borderpx    = 2;        /* border pixel of windows */
 static const unsigned int snap        = 32;       /* snap pixel */
 static const unsigned int gappih      = 10;       /* horiz inner gap between windows */
 static const unsigned int gappiv      = 10;       /* vert inner gap between windows */
@@ -11,24 +11,23 @@ static const unsigned int gappov      = 10;       /* vert outer gap between wind
 static const int smartgaps            = 0;        /* 1 means no outer gap when there is only one window */
 static const int showbar              = 1;        /* 0 means no bar */
 static const int topbar               = 1;        /* 0 means bottom bar */
-static const int horizpadbar          = 2;        /* horizontal padding for statusbar */
-static const int vertpadbar           = 0;        /* vertical padding for statusbar */
+static const int horizpadbar          = 5;        /* horizontal padding for statusbar */
+static const int vertpadbar           = 11;       /* vertical padding for statusbar */
 static const unsigned int colorfultag = 1;        /* 0 means use SchemeSel for selected tag */
-static const int vertpad              = 10;       /* vertical padding of bar */
-static const int sidepad              = 10;       /* horizontal padding of bar */
+static const int vertpad              = 0;       /* vertical padding of bar */
+static const int sidepad              = 0;       /* horizontal padding of bar */
 static const char *fonts[]            = { "monospace:size=11" };
-static const char dmenufont[]         = "monospace:size=11";
 static const char *colors[][3]        = {
 	/*                fg            bg        border */
-	[SchemeNorm]  = { col_white,    col_gray, col_gray },
+	[SchemeNorm]  = { col_br_black, col_gray, col_gray },
 	[SchemeSel]   = { col_black,    col_blue, col_blue },
 	[SchemeTitle] = { col_white,    col_gray, col_gray },
-	[SchemeTag]   = { col_br_black, col_gray, col_black },
-	[SchemeTag1]  = { col_red,      col_gray, col_black },
-	[SchemeTag2]  = { col_green,    col_gray, col_black },
-	[SchemeTag3]  = { col_yellow,   col_gray, col_black },
-	[SchemeTag4]  = { col_blue,     col_gray, col_black },
-	[SchemeTag5]  = { col_cyan,     col_gray, col_black },
+	[SchemeTag]   = { col_br_black, col_gray, col_gray },
+	[SchemeTag1]  = { col_blue,     col_gray, col_gray },
+	[SchemeTag2]  = { col_red,      col_gray, col_gray },
+	[SchemeTag3]  = { col_cyan,     col_gray, col_gray },
+	[SchemeTag4]  = { col_green,    col_gray, col_gray },
+	[SchemeTag5]  = { col_yellow,   col_gray, col_gray },
 };
 
 /* tagging */
@@ -64,7 +63,7 @@ static const Layout layouts[] = {
 };
 
 /* key definitions */
-#define MODKEY Mod1Mask
+#define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -75,13 +74,14 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_black, "-nf", col_br_gray, "-sb", col_blue, "-sf", col_gray, NULL };
-static const char *termcmd[]  = { "kitty", NULL };
+static const char *rofidruncmd[] = { "rofi", "-show", "drun", NULL };
+static const char *rofiruncmd[]  = { "rofi", "-show", "run", NULL };
+static const char *termcmd[]     = { "kitty", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_space,  spawn,          {.v = rofidruncmd } },
+        { MODKEY|ShiftMask,             XK_space,  spawn,          {.v = rofiruncmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
@@ -112,7 +112,6 @@ static Key keys[] = {
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
