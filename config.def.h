@@ -77,6 +77,10 @@ static const Layout layouts[] = {
 static const char *rofidruncmd[] = { "rofi", "-show", "drun", NULL };
 static const char *rofiruncmd[]  = { "rofi", "-show", "run", NULL };
 static const char *termcmd[]     = { "kitty", NULL };
+static const char *upvol[]       = { "pamixer", "-i", "1", NULL };
+static const char *downvol[]     = { "pamixer", "-d", "1", NULL };
+static const char *mutevol[]     = { "pamixer", "-m", NULL };
+static const char *unmutevol[]   = { "pamixer", "-u", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -129,6 +133,10 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	{ 0,                            XK_F12,    spawn,          {.v = upvol } },
+	{ 0,                            XK_F11,    spawn,          {.v = downvol } },
+	{ 0,                            XK_F10,    spawn,          {.v = mutevol } },
+	{ ShiftMask,                    XK_F10,    spawn,          {.v = unmutevol } },
 };
 
 /* button definitions */
